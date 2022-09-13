@@ -163,7 +163,7 @@ namespace truthOrUwU.Commands
             {
                 if (queue.Exists(Player => Player.id == ctx.User.Id))
                 {
-                    if (queue[1].id == ctx.User.Id)
+                    if (queue[queue.Count - 1].id == ctx.User.Id)
                     {
                         if (queue.Count < 3)
                         {
@@ -189,21 +189,21 @@ namespace truthOrUwU.Commands
                     }
                     else if (queue.Count < 3)
                     {
-                        queue.RemoveAt(1);
+                        queue.RemoveAt(queue.Count - 1);
                         gameState = false;
                         randPoint = 0;
                         await ctx.RespondAsync("Not enough players in the queue, game stopped.");
                     }
-                    else if (queue[1].id == randPoint)
+                    else if (queue[queue.Count - 1].id == randPoint)
                     {
                         randPoint = queue[0].id;
-                        queue.RemoveAt(1);
+                        queue.RemoveAt(queue.Count - 1);
                         FormatQ();
                         await ctx.RespondAsync("Asker skipped and removed from the queue. Asker replaced and shuffle moved." + Environment.NewLine + $"<@{queue[queue.Count - 1].id}> is now asking <@{queue[0].id}>." + list);
                     }
                     else
                     {
-                        queue.RemoveAt(1);
+                        queue.RemoveAt(queue.Count - 1);
                         FormatQ();
                         await ctx.RespondAsync("Asker skipped and removed from the queue. The asker has been replaced." + Environment.NewLine + $"<@{queue[queue.Count - 1].id}> is now asking <@{queue[0].id}>." + list);
                     }
